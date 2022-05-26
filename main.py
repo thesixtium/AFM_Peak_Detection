@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
+import signal_cleanup
 
 
 def moving_average_filter(x):
@@ -37,11 +38,15 @@ def read_csv_line():
         for i, line in enumerate(reader):
             # print('line[{}] = {}'.format(i, line))
             return_array.append(line)
+    for i in range(0, len(return_array)):
+        for j in range(0, len(return_array[0])):
+            return_array[i][j] = float(return_array[i][j])
     return return_array
 
 
 def find_csv_line_peaks(x, m=1.0):
-    peaks, _ = find_peaks(x, distance=(20 * m))
+    # best is 0.008
+    """peaks, _ = find_peaks(x, distance=(20 * m))
     peaks2, _ = find_peaks(x, prominence=(1 * m))  # BEST!
     peaks3, _ = find_peaks(x, width=(20 * m))
     peaks4, _ = find_peaks(x, threshold=(
@@ -64,18 +69,50 @@ def find_csv_line_peaks(x, m=1.0):
     plt.legend(['threshold'])
     plt.savefig(str(m) + "_output_plot.png")
     # plt.show()
-    plt.close()
+    plt.close()"""
+
+    peaks, _ = find_peaks(x, prominence=0.008)
+    y = x*(-1)
+    valleys, _ = find_peaks(y, prominence=0.008)
+    plt.plot(peaks, x[peaks], "xr")
+    plt.plot(valleys, x[valleys], "ob")
+    plt.plot(x)
+    plt.legend(['Finished Chart'])
+    plt.show()
+
+    peaks_array = []
+    valley_array = []
+
+    for peak in peaks:
+        peaks_array.append([peak, x[peak]])
+
+    for valley in valleys:
+        valley_array.append([valley, x[valley]])
+
+    points = {
+        "peaks": peaks_array,
+        "valleys": valley_array
+    }
+
+    return points
 
 
 if __name__ == '__main__':
     run = 1
     csv_array = read_csv_line()
     print(len(csv_array[0]))
-    for j in range(0, len(csv_array[0])):
-        csv_array[0][j] = float(csv_array[0][j])
-    if run == 0:
+
+    for j in range(0, len(csv_array[1])):
+        csv_array[0][j] = float(csv_array[1][j])
+    data = signal_cleanup.clean(csv_array[1])
+
+    points = find_csv_line_peaks(np.array(data))
+
+    '''if run == 0:
         for i in range(5, 200):
-            find_csv_line_peaks(np.array(csv_array[0]), (i / 100))
+            find_csv_line_peaks(np.array(data), (i / 100))
+            print(i)
     else:
         for i in range(200, 400):
-            find_csv_line_peaks(np.array(csv_array[0]), (i / 100))
+            find_csv_line_peaks(np.array(data), (i / 100))
+            print(i)'''

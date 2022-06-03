@@ -3,33 +3,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 import signal_cleanup
+from scipy.stats import norm
 
+'''
+Horizontal distance between valleys / peaks -> Recursivley in each line
+Slopes between points -> Recursivley in each line
+What is the center / width of histogram -> End of program run
+ - Slopes
+ - Height differences
+Fit to big scary math equations -> End of program run
 
-def moving_average_filter(x):
-    y = []
-    a = 1 / 2
-    b = 1 / 3
-    for index in range(0, len(x)):
-        if index == 0:
-            y.append((x[index] + x[index + 1]) * a)
-        if index == len(x)-1:
-            y.append((x[index - 1] + x[index]) * a)
-        else:
-            y.append((x[index - 1] + x[index] + x[index + 1]) * b)
-    return y
+Get drop from top to bottom of right side
+Slopes of the left sides
+Histrogram count of step heights
 
-def averaging_filter(x):
-    y = []
-    for index in range(0, len(x) // 2):
-        y[index] = 0
+fit giant equations to the histograms 
 
-    for index in range(0, len(x)):
-        y[index // 2] = x[index]
+'''
 
-    for index in range(0, len(y)):
-        y[index] *= 0.5
-
-    return y
 
 def read_csv_line():
     return_array = []
@@ -44,41 +35,17 @@ def read_csv_line():
     return return_array
 
 
-def find_csv_line_peaks(x, m=1.0):
-    # best is 0.008
-    """peaks, _ = find_peaks(x, distance=(20 * m))
-    peaks2, _ = find_peaks(x, prominence=(1 * m))  # BEST!
-    peaks3, _ = find_peaks(x, width=(20 * m))
-    peaks4, _ = find_peaks(x, threshold=(
-                0.4 * m))  # Required vertical distance to its direct neighbouring samples, pretty useless
-    plt.subplot(2, 2, 1)
-    plt.plot(peaks, x[peaks], "xr")
-    plt.plot(x)
-    plt.legend(['distance'])
-    plt.subplot(2, 2, 2)
-    plt.plot(peaks2, x[peaks2], "ob")
-    plt.plot(x)
-    plt.legend(['prominence'])
-    plt.subplot(2, 2, 3)
-    plt.plot(peaks3, x[peaks3], "vg")
-    plt.plot(x)
-    plt.legend(['width'])
-    plt.subplot(2, 2, 4)
-    plt.plot(peaks4, x[peaks4], "xk")
-    plt.plot(x)
-    plt.legend(['threshold'])
-    plt.savefig(str(m) + "_output_plot.png")
-    # plt.show()
-    plt.close()"""
-
+def find_csv_line_peaks(x, number, printout=False):
     peaks, _ = find_peaks(x, prominence=0.008)
-    y = x*(-1)
+    y = x * (-1)
     valleys, _ = find_peaks(y, prominence=0.008)
-    plt.plot(peaks, x[peaks], "xr")
-    plt.plot(valleys, x[valleys], "ob")
-    plt.plot(x)
-    plt.legend(['Finished Chart'])
-    plt.show()
+    if printout:
+        plt.plot(peaks, x[peaks], "xr")
+        plt.plot(valleys, x[valleys], "ob")
+        plt.plot(x)
+        plt.legend(['Finished Chart'])
+        # plt.show()
+        plt.savefig(str(number) + "_output_plot.png")
 
     peaks_array = []
     valley_array = []
@@ -94,25 +61,59 @@ def find_csv_line_peaks(x, m=1.0):
         "valleys": valley_array
     }
 
+    plt.close()
+
     return points
+
+
+def histogram(x, low_threshold=0.0, high_threshold=100.0):
+    thresholded_x = []
+    for value in x:
+        if high_threshold >= value >= low_threshold:
+            thresholded_x.append(value)
+
+    data = np.array(thresholded_x)
+
+    mu, std = norm.fit(data)
+
+    # best fit of data
+    _ = plt.hist(thresholded_x, bins='auto')  # arguments are passed to np.histogram
+
+    xmin, xmax = plt.xlim()
+    y = np.linspace(xmin, xmax, 100)
+    p = norm.pdf(y, mu, std)
+    p2 = []
+
+    for point in p:  # Why do we need this????
+        p2.append(point * 100)
+
+    plt.plot(y, p2)
+
+    plt.title("Histogram with 'auto' bins")
+    plt.show()
 
 
 if __name__ == '__main__':
     run = 1
     csv_array = read_csv_line()
-    print(len(csv_array[0]))
+    steps_array = []
+    widths_array = []
+    for i in range(0, len(csv_array)):
+        print(i)
 
-    for j in range(0, len(csv_array[1])):
-        csv_array[0][j] = float(csv_array[1][j])
-    data = signal_cleanup.clean(csv_array[1])
+        for j in range(0, len(csv_array[i])):
+            csv_array[i][j] = float(csv_array[i][j])
+        data = signal_cleanup.clean(csv_array[i])
 
-    points = find_csv_line_peaks(np.array(data))
+        points = find_csv_line_peaks(np.array(data), i)
 
-    '''if run == 0:
-        for i in range(5, 200):
-            find_csv_line_peaks(np.array(data), (i / 100))
-            print(i)
-    else:
-        for i in range(200, 400):
-            find_csv_line_peaks(np.array(data), (i / 100))
-            print(i)'''
+        iter_steps_array = signal_cleanup.into_steps(points)
+        for value in iter_steps_array:
+            steps_array.append(value)
+
+        iter_widths_array = signal_cleanup.into_widths(points)
+        for value in iter_widths_array:
+            widths_array.append(value)
+
+    signal_cleanup.histogram(widths_array, "Widths")
+    signal_cleanup.histogram(steps_array, "Steps")

@@ -36,6 +36,12 @@ def read_csv_line():
 
 
 def find_csv_line_peaks(x, number, printout=False):
+
+    # Try widths again
+    # Try combining prominence and widths
+    # about 0.3 nm
+    # openturns gaussian distribution of stuff
+
     peaks, _ = find_peaks(x, prominence=0.008)
     y = x * (-1)
     valleys, _ = find_peaks(y, prominence=0.008)

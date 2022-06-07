@@ -42,10 +42,11 @@ def find_csv_line_peaks(x, number, printout=False):
     # about 0.3 nm
     # openturns gaussian distribution of stuff
 
-    peaks, _ = find_peaks(x, prominence=0.008)
+    peaks, _ = find_peaks(x, prominence=0.008, distance=85)
     y = x * (-1)
-    valleys, _ = find_peaks(y, prominence=0.008)
+    valleys, _ = find_peaks(y, prominence=0.008, distance=85)
     if printout:
+        print(peaks)
         plt.plot(peaks, x[peaks], "xr")
         plt.plot(valleys, x[valleys], "ob")
         plt.plot(x)
@@ -72,46 +73,19 @@ def find_csv_line_peaks(x, number, printout=False):
     return points
 
 
-def histogram(x, low_threshold=0.0, high_threshold=100.0):
-    thresholded_x = []
-    for value in x:
-        if high_threshold >= value >= low_threshold:
-            thresholded_x.append(value)
-
-    data = np.array(thresholded_x)
-
-    mu, std = norm.fit(data)
-
-    # best fit of data
-    _ = plt.hist(thresholded_x, bins='auto')  # arguments are passed to np.histogram
-
-    xmin, xmax = plt.xlim()
-    y = np.linspace(xmin, xmax, 100)
-    p = norm.pdf(y, mu, std)
-    p2 = []
-
-    for point in p:  # Why do we need this????
-        p2.append(point * 100)
-
-    plt.plot(y, p2)
-
-    plt.title("Histogram with 'auto' bins")
-    plt.show()
-
-
 if __name__ == '__main__':
-    run = 1
     csv_array = read_csv_line()
     steps_array = []
     widths_array = []
     for i in range(0, len(csv_array)):
+    # for i in range(0, 1):
         print(i)
 
         for j in range(0, len(csv_array[i])):
             csv_array[i][j] = float(csv_array[i][j])
         data = signal_cleanup.clean(csv_array[i])
 
-        points = find_csv_line_peaks(np.array(data), i)
+        points = find_csv_line_peaks(np.array(data), i, printout=False)
 
         iter_steps_array = signal_cleanup.into_steps(points)
         for value in iter_steps_array:

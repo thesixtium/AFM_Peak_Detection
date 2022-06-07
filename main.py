@@ -74,6 +74,8 @@ def find_csv_line_peaks(x, number, printout=False):
 
 
 if __name__ == '__main__':
+    printout_status = False
+
     csv_array = read_csv_line()
     steps_array = []
     widths_array = []
@@ -83,9 +85,26 @@ if __name__ == '__main__':
 
         for j in range(0, len(csv_array[i])):
             csv_array[i][j] = float(csv_array[i][j])
+
+        if printout_status:
+            print(csv_array[i])
+            plt.plot(csv_array[i])
+            plt.legend(['Unfiltered Data'])
+            # plt.show()
+            plt.savefig(str(i) + "_unfiltered_plot.png")
+            plt.close()
+
         data = signal_cleanup.clean(csv_array[i])
 
-        points = find_csv_line_peaks(np.array(data), i, printout=False)
+        if printout_status:
+            print(data)
+            plt.plot(data)
+            plt.legend(['Filtered Data'])
+            # plt.show()
+            plt.savefig(str(i) + "_filtered_plot.png")
+            plt.close()
+
+        points = find_csv_line_peaks(np.array(data), i, printout=printout_status)
 
         iter_steps_array = signal_cleanup.into_steps(points)
         for value in iter_steps_array:

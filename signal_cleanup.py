@@ -1,8 +1,6 @@
 import numpy
-import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
-from scipy.stats import norm
 
 
 def moving_average(x, w):

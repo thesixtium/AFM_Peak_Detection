@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 import signal_cleanup
-from scipy.stats import norm
 
 '''
 Horizontal distance between valleys / peaks -> Recursivley in each line

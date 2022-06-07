@@ -20,20 +20,20 @@ Python 3.8 is used with the following packages (all installed via ```pip install
 
 ## Terminology Explanation
 This is what one row of the raw CSV data looks like when plotted:
-![unfiltered_plot](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/unfiltered_plot.jpg?raw=true)
+![unfiltered_plot](readme_imgs/unfiltered_plot.jpg)
 
 This is what the above row of raw CSV data looks like when filtered by the moving filter mentioned in [What It Does](###-What-It-Does):
-![filtered_plot](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/filtered_plot.jpg)
+![filtered_plot](readme_imgs/filtered_plot.jpg)
 
 This is a visual diagram of what steps and widths, mentioned in [What It Does](###-What-It-Does), are defined as throughout the project: 
-![filtered_plot_explination](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/filtered_plot_explination.png?raw=true)
+![filtered_plot_explination](readme_imgs/filtered_plot_explination.jpg)
 
 This is what the peaks and valleys of the row of filtered CSV from above will look like:
-![output_plot](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/output_plot.png?raw=true)
+![output_plot](readme_imgs/output_plot.jpg)
 
 These are the histograms of the Steps and Widths of all 1024 lines of data in the CSV data with a peak detection algorithm:
-![Steps Histogram](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/Steps.png?raw=true)
-![Widths Histogram](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/Widths.png?raw=true)
+![Steps Histogram](readme_imgs/Steps.jpg)
+![Widths Histogram](readme_imgs/Widths.jpg)
 
 
 ## Usage

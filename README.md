@@ -20,10 +20,10 @@ Python 3.8 is used with the following packages (all installed via ```pip install
 
 ## Terminology Explanation
 This is what one row of the raw CSV data looks like when plotted:
-![unfiltered_plot](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/unfiltered_plot.png?raw=true)
+![unfiltered_plot](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/unfiltered_plot.jpg?raw=true)
 
 This is what the above row of raw CSV data looks like when filtered by the moving filter mentioned in [What It Does](###-What-It-Does):
-![filtered_plot](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/filtered_plot.png?raw=true)
+![filtered_plot](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/filtered_plot.jpg)
 
 This is a visual diagram of what steps and widths, mentioned in [What It Does](###-What-It-Does), are defined as throughout the project: 
 ![filtered_plot_explination](https://github.com/thesixtium/AFM_Peak_Detection/tree/main/readme_imgs/filtered_plot_explination.png?raw=true)

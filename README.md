@@ -32,6 +32,7 @@ This is what the peaks and valleys of the row of filtered CSV from above will lo
 ![output_plot](readme_imgs/output_plot.jpg)
 
 These are the histograms of the Steps and Widths of all 1024 lines of data in the CSV data with a peak detection algorithm:
+
 ![Steps Histogram](readme_imgs/Steps.jpg?raw)
 ![Widths Histogram](readme_imgs/Widths.jpg?raw)
 

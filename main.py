@@ -46,6 +46,8 @@ def find_csv_line_peaks(x, number, printout=False):
     valleys, _ = find_peaks(y, prominence=0.008, distance=85)
     if printout:
         print(peaks)
+        plt.xlabel("lateral force (nN)")
+        plt.ylabel("tip base position (nm)")
         plt.plot(peaks, x[peaks], "xr")
         plt.plot(valleys, x[valleys], "ob")
         plt.plot(x)

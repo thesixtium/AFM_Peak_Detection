@@ -72,6 +72,8 @@ def histogram(x, plot_name, low_threshold=0.0, high_threshold=10000.0):
         x_axis.append((bins[i] + bins[i + 1]) / 2)
 
     plt.plot(x_axis, n)
+    plt.xlabel(plot_name + " (nN)")
+    plt.ylabel("absolute number of jumps")
 
     peak_plot_x = []
 

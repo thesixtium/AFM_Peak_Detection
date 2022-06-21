@@ -21,6 +21,15 @@ fit giant equations to the histograms
 
 '''
 
+# pixels for distance and mv for force
+# slides 8+ stuff reversed
+# open stuff stuff in sm4
+# labels and lines bigger
+# fit gaussian
+# write how many peaks / centers
+# combine akk graphs
+# blow up slopes
+# look at calibrated stuff
 
 def read_csv_line(file_name):
     return_array = []

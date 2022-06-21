@@ -25,18 +25,22 @@ Python 3.8 is used with the following packages (all installed via ```pip install
 
 ## Terminology Explanation
 This is what one row of the raw CSV data looks like when plotted:
+
 ![unfiltered_plot](readme_imgs/unfiltered_plot.jpg)
 
 These plots are what the above row of raw CSV data looks like when filtered by the different filters mentioned in [What It Does](###-What-It-Does):
+
 ![filtered_plot](readme_imgs/filtered_plot.jpg)
 ![geometric_filtered_plot](readme_imgs/geometric_filtered_plot.jpg)
 ![exponential_filtered_plot](readme_imgs/exponential_filtered_plot.jpg)
 ![fourier_filtered_plot](readme_imgs/fourier_filtered_plot.jpg)
 
 This is a visual diagram of what steps and widths, mentioned in [What It Does](###-What-It-Does), are defined as throughout the project: 
+
 ![filtered_plot_explination](readme_imgs/filtered_plot_explination.jpg)
 
 These plots are what the peaks and valleys of the row of the filtered CSV from above will look like:
+
 ![output_plot](readme_imgs/output_plot.jpg)
 ![geometric_moving_average_output_plot](readme_imgs/geometric_moving_average_output_plot.jpg)
 ![exponential_moving_average_output_plot](readme_imgs/exponential_moving_average_output_plot.jpg)

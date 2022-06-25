@@ -111,7 +111,7 @@ def into_slopes(dictionary):
     return slopes_array
 
 
-def histogram(x, plot_name, x_axis_name, y_axis_name, low_threshold=0.0, high_threshold=10000.0):
+def histogram(x, plot_name, x_axis_name, y_axis_name, fontsize, low_threshold=0.0, high_threshold=10000.0):
     thresholded_x = []
     for value in x:
         if high_threshold >= value >= low_threshold:
@@ -125,8 +125,8 @@ def histogram(x, plot_name, x_axis_name, y_axis_name, low_threshold=0.0, high_th
         x_axis.append((bins[i] + bins[i + 1]) / 2)
 
     plt.plot(x_axis, n)
-    plt.xlabel(x_axis_name)
-    plt.ylabel(y_axis_name)
+    plt.xlabel(x_axis_name, fontsize=fontsize)
+    plt.ylabel(y_axis_name, fontsize=fontsize)
 
     peak_plot_x = []
 
@@ -139,8 +139,7 @@ def histogram(x, plot_name, x_axis_name, y_axis_name, low_threshold=0.0, high_th
     plt.plot(peak_plot_x, n[peaks], "xr")
 
     plt.title(plot_name + " Histogram with 'auto' bins")
-    # plt.show()
-    plt.savefig(plot_name + ".png")
+    plt.savefig(plot_name + ".jpg")
     plt.close()
 
     return [peak_plot_x, n[peaks]]

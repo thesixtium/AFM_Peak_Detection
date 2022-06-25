@@ -5,31 +5,27 @@ from scipy.signal import find_peaks
 import signal_cleanup
 import warnings
 
-'''
-Horizontal distance between valleys / peaks -> Recursivley in each line
-Slopes between points -> Recursivley in each line
-What is the center / width of histogram -> End of program run
- - Slopes
- - Height differences
-Fit to big scary math equations -> End of program run
-
-Get drop from top to bottom of right side
-Slopes of the left sides
-Histrogram count of step heights
-
-fit giant equations to the histograms 
-
-'''
-
-# pixels for distance and mv for force
-# slides 8+ stuff reversed
 # open stuff stuff in sm4
-# labels and lines bigger
+# Make sure EVERY graph has correct sized labels
+# Make sure EVERY graph has a title
 # fit gaussian
 # write how many peaks / centers
-# combine akk graphs
+# combine all graphs
 # blow up slopes
 # look at calibrated stuff
+# Penny Next Step:
+# Make it so that it prints out batches with file name in front
+# Try on other set of Penny data, see what happens
+# Distance: entire length is 4nm, do 0.00390625nm per pixel
+# Print out the average slip width and double slip width
+# Basically, print out the stats in a file in a readable fashion
+# Slips would be 0.25nm - 0.35nm
+# Change peak detection width to be 0.25nm minimum
+# Report per dataset
+# Data I'm doing right now it 4nm
+# Next one is 3nm
+# Make how big the width is a input parameter and do stuff with it
+# 3rd data set is 30nm
 
 def read_csv_line(file_name):
     return_array = []
@@ -44,20 +40,20 @@ def read_csv_line(file_name):
     return return_array
 
 
-def find_csv_line_peaks(x, type, printout=False):
+def find_csv_line_peaks(x, type, xlabel, ylabel, printout=False):
 
     peaks, _ = find_peaks(x, prominence=0.008, distance=85)
     y = x * (-1)
     valleys, _ = find_peaks(y, prominence=0.008, distance=85)
     if printout:
         print(peaks)
-        plt.xlabel("lateral force (nN)")
-        plt.ylabel("tip base position (nm)")
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
         plt.plot(peaks, x[peaks], "xr")
         plt.plot(valleys, x[valleys], "ob")
         plt.plot(x)
         plt.legend(['Finished Chart'])
-        plt.savefig(type + "_output_plot.png")
+        plt.savefig(type + " Output Plot.jpg")
 
     peaks_array = []
     valley_array = []
@@ -79,9 +75,15 @@ def find_csv_line_peaks(x, type, printout=False):
 
 
 def start(file_name, printout_status=False):
+
     warnings.filterwarnings("ignore")
 
     csv_array = read_csv_line(file_name)
+
+    if printout_status:
+        file_name = ""
+    else:
+        file_name = file_name[:-4] + " "
 
     moving_average_steps_array = []
     moving_average_widths_array = []
@@ -99,6 +101,10 @@ def start(file_name, printout_status=False):
     fourier_widths_array = []
     fourier_slopes_array = []
 
+    xlabel = "Distance (pixels)"
+    ylabel = "Force (Volts)"
+    fontsize = 15
+
     for i in range(0, len(csv_array)):
 
         if i != 0:
@@ -114,9 +120,9 @@ def start(file_name, printout_status=False):
             print(csv_array[i])
             plt.plot(csv_array[i])
             plt.legend(['Unfiltered Data'])
-            plt.xlabel("Distance (nm)")
-            plt.ylabel("Force (nN)")
-            plt.savefig("unfiltered_plot.png")
+            plt.xlabel(xlabel, fontsize=fontsize)
+            plt.ylabel(ylabel, fontsize=fontsize)
+            plt.savefig("Unfiltered Plot.jpg")
             plt.close()
 
         data = signal_cleanup.clean(csv_array[i])
@@ -128,34 +134,34 @@ def start(file_name, printout_status=False):
         if printout_status:
             print(moving_average_data)
             plt.plot(moving_average_data)
-            plt.xlabel("Distance (nm)")
-            plt.ylabel("Force (nN)")
+            plt.xlabel(xlabel, fontsize=fontsize)
+            plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Moving Average Filtered Data'])
-            plt.savefig("moving_average_filtered_plot.png")
+            plt.savefig("Moving Average Filtered Plot.jpg")
             plt.close()
 
             print(geometric_moving_average_data)
             plt.plot(geometric_moving_average_data)
-            plt.xlabel("Distance (nm)")
-            plt.ylabel("Force (nN)")
+            plt.xlabel(xlabel, fontsize=fontsize)
+            plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Geometric Moving Average Filtered Data'])
-            plt.savefig("geometric_moving_average_filtered_plot.png")
+            plt.savefig("Geometric Moving Average Filtered Plot.jpg")
             plt.close()
 
             print(exponential_moving_average_data)
             plt.plot(exponential_moving_average_data)
-            plt.xlabel("Distance (nm)")
-            plt.ylabel("Force (nN)")
+            plt.xlabel(xlabel, fontsize=fontsize)
+            plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Exponential Moving Average Filtered Data'])
-            plt.savefig("exponential_moving_average_filtered_plot.png")
+            plt.savefig("Exponential Moving Average Filtered Plot.jpg")
             plt.close()
 
             print(fourier_data)
             plt.plot(fourier_data)
-            plt.xlabel("Distance (nm)")
-            plt.ylabel("Force (nN)")
+            plt.xlabel(xlabel, fontsize=fontsize)
+            plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Fourier Filtered Data'])
-            plt.savefig("fourier_filtered_plot.png")
+            plt.savefig("Fourier Filtered Plot.jpg")
             plt.close()
 
             plt.plot(csv_array[i], label="Unfiltered Data", zorder=0)
@@ -164,15 +170,35 @@ def start(file_name, printout_status=False):
             plt.plot(geometric_moving_average_data, label="GMA Data", zorder=30)
             plt.plot(fourier_data, label="Fourier Data", zorder=40)
             plt.legend()
-            plt.xlabel("Distance (nm)")
-            plt.ylabel("Force (nN)")
-            plt.savefig("total_filtered_plot.png")
+            plt.xlabel(xlabel, fontsize=fontsize)
+            plt.ylabel(ylabel, fontsize=fontsize)
+            plt.savefig("Total Filtered Plot.jpg")
             plt.close()
 
-        moving_average_points = find_csv_line_peaks(np.array(moving_average_data), "moving_average", printout=printout_status)
-        geometric_moving_average_points = find_csv_line_peaks(np.array(geometric_moving_average_data), "geometric_moving_average", printout=printout_status)
-        exponential_moving_average_points = find_csv_line_peaks(np.array(exponential_moving_average_data), "exponential_moving_average", printout=printout_status)
-        fourier_points = find_csv_line_peaks(np.array(fourier_data), "fourier", printout=printout_status)
+        moving_average_points = find_csv_line_peaks(
+            np.array(moving_average_data),
+            "Moving Average",
+            xlabel,
+            ylabel,
+            printout=printout_status)
+        geometric_moving_average_points = find_csv_line_peaks(
+            np.array(geometric_moving_average_data),
+            "Geometric Moving Average",
+            xlabel,
+            ylabel,
+            printout=printout_status)
+        exponential_moving_average_points = find_csv_line_peaks(
+            np.array(exponential_moving_average_data),
+            "Exponential Moving Average",
+            xlabel,
+            ylabel,
+            printout=printout_status)
+        fourier_points = find_csv_line_peaks(
+            np.array(fourier_data),
+            "Fourier",
+            xlabel,
+            ylabel,
+            printout=printout_status)
 
         moving_average_iter_steps_array = signal_cleanup.into_steps(moving_average_points)
         moving_average_iter_widths_array = signal_cleanup.into_widths(moving_average_points)
@@ -218,68 +244,84 @@ def start(file_name, printout_status=False):
         for value in fourier_iter_slopes_array:
             fourier_slopes_array.append(value)
 
+    width_label = "Width (pixels)"
+    steps_label = "Step (Volts)"
+    slopes_label = "Slope (nN/nm)"
+
     return {
         "Moving Average Widths Peaks": signal_cleanup.histogram(
             moving_average_widths_array,
-            file_name + " Moving Average Widths",
-            "Width (nm)",
-            "Count of Widths"),
+            file_name + "Moving Average Widths",
+            width_label,
+            "Count of Widths",
+            fontsize),
         "Moving Average Steps Peaks": signal_cleanup.histogram(
             moving_average_steps_array,
-            file_name + " Moving Average Steps",
-            "Step (nN)",
-            "Count of Steps"),
+            file_name + "Moving Average Steps",
+            steps_label,
+            "Count of Steps",
+            fontsize),
         "Moving Average Slopes Peaks": signal_cleanup.histogram(
             moving_average_slopes_array,
-            file_name + " Moving Average Slopes",
-            "Slope (nN/nm)",
-            "Count of Slopes"),
+            file_name + "Moving Average Slopes",
+            slopes_label,
+            "Count of Slopes",
+            fontsize),
 
         "Geometric Moving Average Widths Peaks": signal_cleanup.histogram(
             geometric_moving_average_widths_array,
-            file_name + " Geometric Moving Average Widths",
-            "Width (nm)",
-            "Count of Widths"),
+            file_name + "Geometric Moving Average Widths",
+            width_label,
+            "Count of Widths",
+            fontsize),
         "Geometric Moving Average Steps Peaks": signal_cleanup.histogram(
             geometric_moving_average_steps_array,
             file_name + " Geometric Moving Average Steps",
-            "Step (nN)",
-            "Count of Steps"),
+            steps_label,
+            "Count of Steps",
+            fontsize),
         "Geometric Moving Average Slopes Peaks": signal_cleanup.histogram(
             geometric_moving_average_slopes_array,
             file_name + " Geometric Moving Average Slopes",
-            "Slope (nN/nm)",
-            "Count of Slopes"),
+            slopes_label,
+            "Count of Slopes",
+            fontsize),
 
         "Exponential Moving Average Widths Peaks": signal_cleanup.histogram(
             exponential_moving_average_widths_array,
             file_name + " Exponential Moving Average Widths",
-            "Width (nm)",
-            "Count of Widths"),
+            width_label,
+            "Count of Widths",
+            fontsize),
         "Exponential Moving Average Steps Peaks": signal_cleanup.histogram(
             exponential_moving_average_steps_array,
             file_name + " Exponential Moving Average Steps",
-            "Step (nN)",
-            "Count of Steps"),
+            steps_label,
+            "Count of Steps",
+            fontsize),
         "Exponential Moving Average Slopes Peaks": signal_cleanup.histogram(
             exponential_moving_average_slopes_array,
             file_name + " Exponential Moving Average Slopes",
-            "Slope (nN/nm)",
-            "Count of Slopes"),
+            slopes_label,
+            "Count of Slopes",
+            fontsize),
 
         "Fourier Widths Peaks": signal_cleanup.histogram(
             fourier_widths_array,
             file_name + " Fourier Widths",
-            "Width (nm)",
-            "Count of Widths"),
+            width_label,
+            "Count of Widths",
+            fontsize),
         "Fourier Steps Peaks": signal_cleanup.histogram(
             fourier_steps_array,
             file_name + " Fourier Steps",
-            "Step (nN)",
-            "Count of Steps"),
+            steps_label,
+            "Count of Steps",
+            fontsize),
         "Fourier Slopes Peaks": signal_cleanup.histogram(
             fourier_slopes_array,
             file_name + " Fourier Slopes",
-            "Slope (nN/nm)",
-            "Count of Slopes")
+            slopes_label,
+            "Count of Slopes",
+            fontsize)
             }

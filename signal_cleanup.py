@@ -111,7 +111,7 @@ def into_slopes(dictionary):
     return slopes_array
 
 
-def histogram(x, plot_name, x_axis_name, y_axis_name, fontsize, low_threshold=0.0, high_threshold=10000.0):
+def histogram(x, plot_name, x_axis_name, y_axis_name, fontsize, nm_per_pixel, low_threshold=0.0, high_threshold=10000.0):
     thresholded_x = []
     for value in x:
         if high_threshold >= value >= low_threshold:
@@ -142,7 +142,15 @@ def histogram(x, plot_name, x_axis_name, y_axis_name, fontsize, low_threshold=0.
     plt.savefig(plot_name + ".jpg")
     plt.close()
 
-    return [peak_plot_x, n[peaks]]
+    return_array = [peak_plot_x, n[peaks]]
+    return_array_2 = []
+
+    for count in range(0, len(return_array[0])):
+        # print()
+        # print("Count " + str(count))
+        return_array_2.append([return_array[0][count], return_array[1][count] * nm_per_pixel])
+
+    return return_array_2
 
 def fourier_clean(x):
 

@@ -11,12 +11,10 @@ import warnings
 # fit gaussian
 # write how many peaks / centers
 # combine all graphs
-# blow up slopes
-# look at calibrated stuff
+
 # Penny Next Step:
 # Make it so that it prints out batches with file name in front
 # Try on other set of Penny data, see what happens
-# Distance: entire length is 4nm, do 0.00390625nm per pixel
 # Print out the average slip width and double slip width
 # Basically, print out the stats in a file in a readable fashion
 # Slips would be 0.25nm - 0.35nm
@@ -74,7 +72,7 @@ def find_csv_line_peaks(x, type, xlabel, ylabel, printout=False):
     return points
 
 
-def start(file_name, printout_status=False):
+def start(file_name, width_in_nm, printout_status=False):
 
     warnings.filterwarnings("ignore")
 
@@ -101,7 +99,9 @@ def start(file_name, printout_status=False):
     fourier_widths_array = []
     fourier_slopes_array = []
 
-    xlabel = "Distance (pixels)"
+    nm_per_pixel = width_in_nm / len(csv_array[0])
+
+    xlabel = "Distance (" + str(nm_per_pixel) + " nm/pixel)"
     ylabel = "Force (Volts)"
     fontsize = 15
 
@@ -244,7 +244,7 @@ def start(file_name, printout_status=False):
         for value in fourier_iter_slopes_array:
             fourier_slopes_array.append(value)
 
-    width_label = "Width (pixels)"
+    width_label = "Width (" + str(nm_per_pixel) + " nm/pixel)"
     steps_label = "Step (Volts)"
     slopes_label = "Slope (nN/nm)"
 
@@ -254,74 +254,86 @@ def start(file_name, printout_status=False):
             file_name + "Moving Average Widths",
             width_label,
             "Count of Widths",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Moving Average Steps Peaks": signal_cleanup.histogram(
             moving_average_steps_array,
             file_name + "Moving Average Steps",
             steps_label,
             "Count of Steps",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Moving Average Slopes Peaks": signal_cleanup.histogram(
             moving_average_slopes_array,
             file_name + "Moving Average Slopes",
             slopes_label,
             "Count of Slopes",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
 
         "Geometric Moving Average Widths Peaks": signal_cleanup.histogram(
             geometric_moving_average_widths_array,
             file_name + "Geometric Moving Average Widths",
             width_label,
             "Count of Widths",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Geometric Moving Average Steps Peaks": signal_cleanup.histogram(
             geometric_moving_average_steps_array,
             file_name + " Geometric Moving Average Steps",
             steps_label,
             "Count of Steps",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Geometric Moving Average Slopes Peaks": signal_cleanup.histogram(
             geometric_moving_average_slopes_array,
             file_name + " Geometric Moving Average Slopes",
             slopes_label,
             "Count of Slopes",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
 
         "Exponential Moving Average Widths Peaks": signal_cleanup.histogram(
             exponential_moving_average_widths_array,
             file_name + " Exponential Moving Average Widths",
             width_label,
             "Count of Widths",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Exponential Moving Average Steps Peaks": signal_cleanup.histogram(
             exponential_moving_average_steps_array,
             file_name + " Exponential Moving Average Steps",
             steps_label,
             "Count of Steps",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Exponential Moving Average Slopes Peaks": signal_cleanup.histogram(
             exponential_moving_average_slopes_array,
             file_name + " Exponential Moving Average Slopes",
             slopes_label,
             "Count of Slopes",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
 
         "Fourier Widths Peaks": signal_cleanup.histogram(
             fourier_widths_array,
             file_name + " Fourier Widths",
             width_label,
             "Count of Widths",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Fourier Steps Peaks": signal_cleanup.histogram(
             fourier_steps_array,
             file_name + " Fourier Steps",
             steps_label,
             "Count of Steps",
-            fontsize),
+            fontsize,
+            nm_per_pixel),
         "Fourier Slopes Peaks": signal_cleanup.histogram(
             fourier_slopes_array,
             file_name + " Fourier Slopes",
             slopes_label,
             "Count of Slopes",
-            fontsize)
+            fontsize,
+            nm_per_pixel)
             }

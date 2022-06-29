@@ -5,6 +5,7 @@ from scipy.signal import find_peaks
 import signal_cleanup
 import warnings
 
+
 # open stuff stuff in sm4
 # Make sure EVERY graph has correct sized labels
 # Make sure EVERY graph has a title
@@ -16,14 +17,12 @@ import warnings
 # Make it so that it prints out batches with file name in front
 # Try on other set of Penny data, see what happens
 # Print out the average slip width and double slip width
-# Basically, print out the stats in a file in a readable fashion
-# Slips would be 0.25nm - 0.35nm
-# Change peak detection width to be 0.25nm minimum
-# Report per dataset
 # Data I'm doing right now it 4nm
 # Next one is 3nm
 # Make how big the width is a input parameter and do stuff with it
 # 3rd data set is 30nm
+
+# Document everything
 
 def read_csv_line(file_name):
     return_array = []
@@ -38,20 +37,19 @@ def read_csv_line(file_name):
     return return_array
 
 
-def find_csv_line_peaks(x, type, xlabel, ylabel, printout=False):
-
-    peaks, _ = find_peaks(x, prominence=0.008, distance=85)
+def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, printout=False):
+    peaks, _ = find_peaks(x, prominence=0.008, distance=distance)
     y = x * (-1)
-    valleys, _ = find_peaks(y, prominence=0.008, distance=85)
+    valleys, _ = find_peaks(y, prominence=0.008, distance=distance)
     if printout:
         print(peaks)
-        plt.xlabel(xlabel)
-        plt.ylabel(ylabel)
+        plt.xlabel(x_label)
+        plt.ylabel(y_label)
         plt.plot(peaks, x[peaks], "xr")
         plt.plot(valleys, x[valleys], "ob")
         plt.plot(x)
         plt.legend(['Finished Chart'])
-        plt.savefig(type + " Output Plot.jpg")
+        plt.savefig(chart_type + " Output Plot.jpg")
 
     peaks_array = []
     valley_array = []
@@ -73,7 +71,6 @@ def find_csv_line_peaks(x, type, xlabel, ylabel, printout=False):
 
 
 def start(file_name, width_in_nm, printout_status=False):
-
     warnings.filterwarnings("ignore")
 
     csv_array = read_csv_line(file_name)
@@ -100,6 +97,7 @@ def start(file_name, width_in_nm, printout_status=False):
     fourier_slopes_array = []
 
     nm_per_pixel = width_in_nm / len(csv_array[0])
+    minimum_nm_between_peaks = 25
 
     xlabel = "Distance (" + str(nm_per_pixel) + " nm/pixel)"
     ylabel = "Force (Volts)"
@@ -180,24 +178,28 @@ def start(file_name, width_in_nm, printout_status=False):
             "Moving Average",
             xlabel,
             ylabel,
+            ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
         geometric_moving_average_points = find_csv_line_peaks(
             np.array(geometric_moving_average_data),
             "Geometric Moving Average",
             xlabel,
             ylabel,
+            ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
         exponential_moving_average_points = find_csv_line_peaks(
             np.array(exponential_moving_average_data),
             "Exponential Moving Average",
             xlabel,
             ylabel,
+            ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
         fourier_points = find_csv_line_peaks(
             np.array(fourier_data),
             "Fourier",
             xlabel,
             ylabel,
+            ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
 
         moving_average_iter_steps_array = signal_cleanup.into_steps(moving_average_points)
@@ -336,4 +338,4 @@ def start(file_name, width_in_nm, printout_status=False):
             "Count of Slopes",
             fontsize,
             nm_per_pixel)
-            }
+    }

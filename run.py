@@ -106,51 +106,77 @@ def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, printout=Fals
 
 
 def start(file_name, width_in_nm, printout_status=False):
+    """
+    The start of the program, to be called by an outside main function
+
+    :param file_name: the CSV file to use, extension included
+    :param width_in_nm: how wide the sample is in nanometers
+    :param printout_status: whether or not to give a detailed print out of all steps
+    :return: an extensive dictionary of the steps, widths, and slopes for each filter type
+    """
+
+    # Ignore warnings because they're annoying (although I should probably take care of them)
     warnings.filterwarnings("ignore")
 
+    # Read the CSV file
     csv_array = read_csv_line(file_name)
 
+    # If printing out, remove the file name to make everything more clear
     if printout_status:
         file_name = ""
     else:
         file_name = file_name[:-4] + " "
 
+    # Initialize all MA arrays
     moving_average_steps_array = []
     moving_average_widths_array = []
     moving_average_slopes_array = []
 
+    # Initialize all GMA arrays
     geometric_moving_average_steps_array = []
     geometric_moving_average_widths_array = []
     geometric_moving_average_slopes_array = []
 
+    # Initialize all EMA arrays
     exponential_moving_average_steps_array = []
     exponential_moving_average_widths_array = []
     exponential_moving_average_slopes_array = []
 
+    # Initialize all Fourier arrays
     fourier_steps_array = []
     fourier_widths_array = []
     fourier_slopes_array = []
 
+    # Initialize pixels to nanometers conversion
     nm_per_pixel = width_in_nm / len(csv_array[0])
     minimum_nm_between_peaks = 25
 
+    # Initialize all graph labels and font sizes
     xlabel = "Distance (" + str(nm_per_pixel) + " nm/pixel)"
     ylabel = "Force (Volts)"
     fontsize = 15
 
+    # Go through every row of the array (ie. go through each row of the CSV file)
     for i in range(0, len(csv_array)):
 
+        # Don't printout anything other than the first row
         if i != 0:
             printout_status = False
 
-        if printout_status:
-            print(i)
-
+        # Make everything a float
         for j in range(0, len(csv_array[i])):
             csv_array[i][j] = float(csv_array[i][j])
 
+        # Process all the data through the different filters
+        data = signal_cleanup.clean(csv_array[i])
+        moving_average_data = data[0]
+        geometric_moving_average_data = data[1]
+        exponential_moving_average_data = data[2]
+        fourier_data = data[3]
+
+        # Print out unfiltered and filtered data
         if printout_status:
-            print(csv_array[i])
+            print("Unfiltered Data: " + str(csv_array[i]))
             plt.plot(csv_array[i])
             plt.legend(['Unfiltered Data'])
             plt.xlabel(xlabel, fontsize=fontsize)
@@ -158,14 +184,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.savefig("Unfiltered Plot.jpg")
             plt.close()
 
-        data = signal_cleanup.clean(csv_array[i])
-        moving_average_data = data[0]
-        geometric_moving_average_data = data[1]
-        exponential_moving_average_data = data[2]
-        fourier_data = data[3]
-
-        if printout_status:
-            print(moving_average_data)
+            print("MA: " + str(moving_average_data))
             plt.plot(moving_average_data)
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
@@ -173,7 +192,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.savefig("Moving Average Filtered Plot.jpg")
             plt.close()
 
-            print(geometric_moving_average_data)
+            print("GMA: " + str(geometric_moving_average_data))
             plt.plot(geometric_moving_average_data)
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
@@ -181,7 +200,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.savefig("Geometric Moving Average Filtered Plot.jpg")
             plt.close()
 
-            print(exponential_moving_average_data)
+            print("EMA: " + str(exponential_moving_average_data))
             plt.plot(exponential_moving_average_data)
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
@@ -189,7 +208,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.savefig("Exponential Moving Average Filtered Plot.jpg")
             plt.close()
 
-            print(fourier_data)
+            print("fourier: " + str(fourier_data))
             plt.plot(fourier_data)
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
@@ -197,6 +216,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.savefig("Fourier Filtered Plot.jpg")
             plt.close()
 
+            print("mix_of_data")
             plt.plot(csv_array[i], label="Unfiltered Data", zorder=0)
             plt.plot(exponential_moving_average_data, label="EMA Data", zorder=10)
             plt.plot(moving_average_data, label="MA Data", zorder=20)
@@ -208,6 +228,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.savefig("Total Filtered Plot.jpg")
             plt.close()
 
+        # Find the peaks and valleys of the data passed through a MA filter
         moving_average_points = find_csv_line_peaks(
             np.array(moving_average_data),
             "Moving Average",
@@ -215,6 +236,8 @@ def start(file_name, width_in_nm, printout_status=False):
             ylabel,
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
+
+        # Find the peaks and valleys of the data passed through a GMA filter
         geometric_moving_average_points = find_csv_line_peaks(
             np.array(geometric_moving_average_data),
             "Geometric Moving Average",
@@ -222,6 +245,8 @@ def start(file_name, width_in_nm, printout_status=False):
             ylabel,
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
+
+        # Find the peaks and valleys of the data passed through a EMA filter
         exponential_moving_average_points = find_csv_line_peaks(
             np.array(exponential_moving_average_data),
             "Exponential Moving Average",
@@ -229,6 +254,8 @@ def start(file_name, width_in_nm, printout_status=False):
             ylabel,
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
+
+        # Find the peaks and valleys of the data passed through a Fourier filter
         fourier_points = find_csv_line_peaks(
             np.array(fourier_data),
             "Fourier",
@@ -237,22 +264,27 @@ def start(file_name, width_in_nm, printout_status=False):
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
             printout=printout_status)
 
+        # Process peaks and valleys of the MA filtered data
         moving_average_iter_steps_array = signal_cleanup.into_steps(moving_average_points)
         moving_average_iter_widths_array = signal_cleanup.into_widths(moving_average_points)
         moving_average_iter_slopes_array = signal_cleanup.into_slopes(moving_average_points)
 
+        # Process peaks and valleys of the GMA filtered data
         geometric_moving_average_iter_steps_array = signal_cleanup.into_steps(geometric_moving_average_points)
         geometric_moving_average_iter_widths_array = signal_cleanup.into_widths(geometric_moving_average_points)
         geometric_moving_average_iter_slopes_array = signal_cleanup.into_slopes(geometric_moving_average_points)
 
+        # Process peaks and valleys of the GMA filtered data
         exponential_moving_average_iter_steps_array = signal_cleanup.into_steps(exponential_moving_average_points)
         exponential_moving_average_iter_widths_array = signal_cleanup.into_widths(exponential_moving_average_points)
         exponential_moving_average_iter_slopes_array = signal_cleanup.into_slopes(exponential_moving_average_points)
 
+        # Process peaks and valleys of the Fourier filtered data
         fourier_iter_steps_array = signal_cleanup.into_steps(fourier_points)
         fourier_iter_widths_array = signal_cleanup.into_widths(fourier_points)
         fourier_iter_slopes_array = signal_cleanup.into_slopes(fourier_points)
 
+        # Split the values of the MA filtered data for easier time putting into a dictionary
         for value in moving_average_iter_steps_array:
             moving_average_steps_array.append(value)
         for value in moving_average_iter_widths_array:
@@ -260,6 +292,7 @@ def start(file_name, width_in_nm, printout_status=False):
         for value in moving_average_iter_slopes_array:
             moving_average_slopes_array.append(value)
 
+        # Split the values of the GMA filtered data for easier time putting into a dictionary
         for value in geometric_moving_average_iter_steps_array:
             geometric_moving_average_steps_array.append(value)
         for value in geometric_moving_average_iter_widths_array:
@@ -267,6 +300,7 @@ def start(file_name, width_in_nm, printout_status=False):
         for value in geometric_moving_average_iter_slopes_array:
             geometric_moving_average_slopes_array.append(value)
 
+        # Split the values of the EMA filtered data for easier time putting into a dictionary
         for value in exponential_moving_average_iter_steps_array:
             exponential_moving_average_steps_array.append(value)
         for value in exponential_moving_average_iter_widths_array:
@@ -274,6 +308,7 @@ def start(file_name, width_in_nm, printout_status=False):
         for value in exponential_moving_average_iter_slopes_array:
             exponential_moving_average_slopes_array.append(value)
 
+        # Split the values of the Fourier filtered data for easier time putting into a dictionary
         for value in fourier_iter_steps_array:
             fourier_steps_array.append(value)
         for value in fourier_iter_widths_array:
@@ -281,10 +316,12 @@ def start(file_name, width_in_nm, printout_status=False):
         for value in fourier_iter_slopes_array:
             fourier_slopes_array.append(value)
 
+    # Labels for all the charts
     width_label = "Width (" + str(nm_per_pixel) + " nm/pixel)"
     steps_label = "Step (Volts)"
     slopes_label = "Slope (nN/nm)"
 
+    # Build and return the dictionary that gets returned
     return {
         "Moving Average Widths Peaks": signal_cleanup.histogram(
             moving_average_widths_array,

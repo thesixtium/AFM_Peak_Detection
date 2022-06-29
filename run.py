@@ -25,23 +25,55 @@ import warnings
 # Document everything
 
 def read_csv_line(file_name):
+    """
+    Reads CSV file into a 2D array of strings, then converts array of strings into
+        an array of floats.
+
+    :param file_name: file name / file path to read, including the file extension
+    :return: 2D array of floats
+    """
+
+    # Initialize return array
     return_array = []
+
+    # Read each line of csv file into return array
     with open(file_name, "r") as f:
         reader = csv.reader(f, delimiter=",")
         for i, line in enumerate(reader):
-            # print('line[{}] = {}'.format(i, line))
             return_array.append(line)
+
+    # Convert each entry in 2D array into a float
     for i in range(0, len(return_array)):
         for j in range(0, len(return_array[0])):
             return_array[i][j] = float(return_array[i][j])
+
     return return_array
 
 
 def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, printout=False):
+    """
+    Find the peaks and valleys in a data set
+
+    :param x: 1D array of the data set
+    :param chart_type: What type of data is passed in (only used for output plot if printout is True)
+    :param x_label: X-axis label (only used for output plot if printout is True)
+    :param y_label: Y-axis label (only used for output plot if printout is True)
+    :param distance: The minimum distance between peaks
+    :param printout: Whether or not to print out the data in the form of a saved graph
+    :return: A dictionary with 'peaks' and 'valleys' containing the peaks and valleys of 'x'
+    """
+
+    # Find the peaks based on scipy.signal's find_peaks method
     peaks, _ = find_peaks(x, prominence=0.008, distance=distance)
+
+    # Inverse graph over the x-axis so find_peaks can be applied again
     y = x * (-1)
+
+    # Find the peaks based on scipy.signal's find_peaks method
     valleys, _ = find_peaks(y, prominence=0.008, distance=distance)
+
     if printout:
+        # Print out a chart showing the peaks and valleys overlayed on the data set
         print(peaks)
         plt.xlabel(x_label)
         plt.ylabel(y_label)
@@ -50,22 +82,25 @@ def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, printout=Fals
         plt.plot(x)
         plt.legend(['Finished Chart'])
         plt.savefig(chart_type + " Output Plot.jpg")
+        plt.close()
 
+    # Initialize empty arrays
     peaks_array = []
     valley_array = []
 
+    # Assemble the peaks array
     for peak in peaks:
         peaks_array.append([peak, x[peak]])
 
+    # Assemble the valley array
     for valley in valleys:
         valley_array.append([valley, x[valley]])
 
+    # Assemble the return dictionary
     points = {
         "peaks": peaks_array,
         "valleys": valley_array
     }
-
-    plt.close()
 
     return points
 

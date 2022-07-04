@@ -135,7 +135,11 @@ def histogram(x, plot_name, x_axis_name, y_axis_name, fontsize, nm_per_pixel, lo
         for i in range(0, len(n)):
             if point == n[i]:
                 peak_plot_x.append(x_axis[i])
+                break
 
+    print(peak_plot_x)
+    print(peaks)
+    print(n[peaks])
     plt.plot(peak_plot_x, n[peaks], "xr")
 
     plt.title(plot_name + " Histogram with 'auto' bins")

@@ -3,16 +3,16 @@ file.csv Results
 Moving Average
 Widths: 
 	Values
-	- (78.93548387096774, 2.1533203125)
-	- (245.0, 1.083984375)
+	- (78.93548387096774, 2.1650390625)
+	- (245.0, 1.0986328125)
 	Value Math
 	- Result 1's x-value is 3.1x result 0's x-value
-	- Result 1's y-value is 0.5x result 0's y-value
+	- Result 1's y-value is 0.51x result 0's y-value
 
 
 Steps: 
 	Values
-	- (0.18286950910597816, 1.083984375)
+	- (0.18286950910597816, 1.078125)
 	- (0.21210386664293468, 1.0166015625)
 	Value Math
 	- Result 1's x-value is 1.16x result 0's x-value
@@ -21,14 +21,18 @@ Steps:
 
 Slopes: 
 	Values
-	- (200.8795632554118, 1.3623046875)
+	- (200.8795632554118, 1.37109375)
+	- (794.1071345909515, 0.3984375)
+	Value Math
+	- Result 1's x-value is 3.95x result 0's x-value
+	- Result 1's y-value is 0.29x result 0's y-value
 
 
 Geometric Moving Average
 Widths: 
 	Values
-	- (78.93548387096774, 2.1591796875)
-	- (245.0, 1.0810546875)
+	- (78.93548387096774, 2.1708984375)
+	- (245.0, 1.095703125)
 	Value Math
 	- Result 1's x-value is 3.1x result 0's x-value
 	- Result 1's y-value is 0.5x result 0's y-value
@@ -36,107 +40,95 @@ Widths:
 
 Steps: 
 	Values
-	- (0.1869319847295236, 1.1015625)
-	- (0.216815525417528, 1.0751953125)
+	- (0.18287172104908822, 1.0810546875)
+	- (0.22672256879779035, 1.0107421875)
 	Value Math
-	- Result 1's x-value is 1.16x result 0's x-value
-	- Result 1's y-value is 0.98x result 0's y-value
+	- Result 1's x-value is 1.24x result 0's x-value
+	- Result 1's y-value is 0.93x result 0's y-value
 
 
 Slopes: 
 	Values
-	- (200.89487732298483, 1.3681640625)
+	- (200.89487732298483, 1.376953125)
 
 
 Exponential Moving Average
 Widths: 
 	Values
-	- (85.5, 1.435546875)
-	- (151.5, 1.2890625)
-	- (173.5, 1.3623046875)
-	- (195.5, 1.39453125)
-	- (250.5, 0.837890625)
-	- (272.5, 0.66796875)
+	- (90.66666666666666, 1.4765625)
+	- (123.73333333333333, 1.2451171875)
+	- (200.88888888888889, 1.4091796875)
+	- (244.97777777777776, 0.87890625)
 	Value Math
-	- Result 1's x-value is 1.77x result 0's x-value
-	- Result 1's y-value is 0.9x result 0's y-value
-	- Result 2's x-value is 1.15x result 1's x-value
-	- Result 2's y-value is 1.06x result 1's y-value
-	- Result 3's x-value is 1.13x result 2's x-value
-	- Result 3's y-value is 1.02x result 2's y-value
-	- Result 4's x-value is 1.28x result 3's x-value
-	- Result 4's y-value is 0.6x result 3's y-value
-	- Result 5's x-value is 1.09x result 4's x-value
-	- Result 5's y-value is 0.8x result 4's y-value
+	- Result 1's x-value is 1.36x result 0's x-value
+	- Result 1's y-value is 0.84x result 0's y-value
+	- Result 2's x-value is 1.62x result 1's x-value
+	- Result 2's y-value is 1.13x result 1's y-value
+	- Result 3's x-value is 1.22x result 2's x-value
+	- Result 3's y-value is 0.62x result 2's y-value
 
 
 Steps: 
 	Values
-	- (0.12518950607001922, 0.931640625)
-	- (0.19347281556283522, 1.23046875)
-	- (0.37556164087701127, 1.3388671875)
-	- (0.5348893630269153, 0.7294921875)
+	- (0.19202508957368433, 1.1806640625)
+	- (0.2823882194123484, 1.32421875)
+	- (0.5308868264686746, 0.75)
 	Value Math
-	- Result 1's x-value is 1.55x result 0's x-value
-	- Result 1's y-value is 1.32x result 0's y-value
-	- Result 2's x-value is 1.94x result 1's x-value
-	- Result 2's y-value is 1.09x result 1's y-value
-	- Result 3's x-value is 1.42x result 2's x-value
-	- Result 3's y-value is 0.54x result 2's y-value
+	- Result 1's x-value is 1.47x result 0's x-value
+	- Result 1's y-value is 1.12x result 0's y-value
+	- Result 2's x-value is 1.88x result 1's x-value
+	- Result 2's y-value is 0.57x result 1's y-value
 
 
 Slopes: 
 	Values
-	- (188.51926948592467, 2.02734375)
-	- (374.9011093328536, 1.2568359375)
+	- (199.21800266589074, 1.9658203125)
+	- (387.0079494215556, 1.271484375)
 	Value Math
-	- Result 1's x-value is 1.99x result 0's x-value
-	- Result 1's y-value is 0.62x result 0's y-value
+	- Result 1's x-value is 1.94x result 0's x-value
+	- Result 1's y-value is 0.65x result 0's y-value
 
 
 Fourier
 Widths: 
 	Values
-	- (87.29787234042553, 0.9140625)
-	- (177.51063829787233, 1.376953125)
-	- (200.06382978723406, 1.306640625)
-	- (222.61702127659572, 1.2392578125)
-	- (245.17021276595744, 1.294921875)
+	- (63.84042553191489, 0.650390625)
+	- (86.43617021276596, 0.9755859375)
+	- (176.81914893617022, 1.30078125)
+	- (199.41489361702128, 1.34765625)
+	- (244.6063829787234, 1.400390625)
 	Value Math
-	- Result 1's x-value is 2.03x result 0's x-value
-	- Result 1's y-value is 1.51x result 0's y-value
-	- Result 2's x-value is 1.13x result 1's x-value
-	- Result 2's y-value is 0.95x result 1's y-value
-	- Result 3's x-value is 1.11x result 2's x-value
-	- Result 3's y-value is 0.95x result 2's y-value
-	- Result 4's x-value is 1.1x result 3's x-value
+	- Result 1's x-value is 1.35x result 0's x-value
+	- Result 1's y-value is 1.5x result 0's y-value
+	- Result 2's x-value is 2.05x result 1's x-value
+	- Result 2's y-value is 1.33x result 1's y-value
+	- Result 3's x-value is 1.13x result 2's x-value
+	- Result 3's y-value is 1.04x result 2's y-value
+	- Result 4's x-value is 1.23x result 3's x-value
 	- Result 4's y-value is 1.04x result 3's y-value
 
 
 Steps: 
 	Values
-	- (0.21241890137085684, 1.130859375)
-	- (0.3014495620356706, 1.259765625)
-	- (0.3459648923680775, 1.2802734375)
-	- (0.41273788786668775, 1.224609375)
+	- (0.21241890137085684, 1.142578125)
+	- (0.3459648923680775, 1.2744140625)
+	- (0.2791918968694671, 1.2421875)
 	Value Math
-	- Result 1's x-value is 1.42x result 0's x-value
-	- Result 1's y-value is 1.11x result 0's y-value
-	- Result 2's x-value is 1.15x result 1's x-value
-	- Result 2's y-value is 1.02x result 1's y-value
-	- Result 3's x-value is 1.19x result 2's x-value
-	- Result 3's y-value is 0.96x result 2's y-value
+	- Result 1's x-value is 1.63x result 0's x-value
+	- Result 1's y-value is 1.12x result 0's y-value
+	- Result 2's x-value is 0.81x result 1's x-value
+	- Result 2's y-value is 0.97x result 1's y-value
 
 
 Slopes: 
 	Values
-	- (182.61580525214836, 1.1923828125)
-	- (364.3838426523205, 1.3359375)
-	- (520.1850175667537, 0.955078125)
+	- (183.6911201096866, 1.1923828125)
+	- (367.1318695104738, 1.3271484375)
+	- (734.0133683120481, 0.28125)
 	Value Math
 	- Result 1's x-value is 2.0x result 0's x-value
-	- Result 1's y-value is 1.12x result 0's y-value
-	- Result 2's x-value is 1.43x result 1's x-value
-	- Result 2's y-value is 0.71x result 1's y-value
+	- Result 1's y-value is 1.11x result 0's y-value
+	- Result 2's x-value is 2.0x result 1's x-value
+	- Result 2's y-value is 0.21x result 1's y-value
 
 

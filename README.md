@@ -26,31 +26,31 @@ Python 3.8 is used with the following packages (all installed via ```pip install
 ## Terminology Explanation
 This is what one row of the raw CSV data looks like when plotted:
 
-![unfiltered_plot](readme_imgs/unfiltered_plot.jpg)
+![unfiltered_plot](readme_imgs/Unfiltered Plot.jpg)
 
 These plots are what the above row of raw CSV data looks like when filtered by the different filters mentioned in [What It Does](###-What-It-Does):
 
-![filtered_plot](readme_imgs/filtered_plot.jpg)
-![geometric_filtered_plot](readme_imgs/geometric_filtered_plot.jpg)
-![exponential_filtered_plot](readme_imgs/exponential_filtered_plot.jpg)
-![fourier_filtered_plot](readme_imgs/fourier_filtered_plot.jpg)
+![moving_average_filtered_plot](readme_imgs/Moving Average Filtered Plot.jpg)
+![geometric_filtered_plot](readme_imgs/Geometric Moving Average Filtered Plot.jpg)
+![exponential_filtered_plot](readme_imgs/Exponential Moving Average Filtered Plot.jpg)
+![fourier_filtered_plot](readme_imgs/Fourier Filtered Plot.jpg)
 
 This is a visual diagram of what steps and widths, mentioned in [What It Does](###-What-It-Does), are defined as throughout the project: 
 
-![filtered_plot_explination](readme_imgs/filtered_plot_explination.jpg)
+![filtered_plot_explination](readme_imgs/Filtered Plot Explination.jpg)
 
 These plots are what the peaks and valleys of the row of the filtered CSV from above will look like:
 
-![output_plot](readme_imgs/output_plot.jpg)
-![geometric_moving_average_output_plot](readme_imgs/geometric_moving_average_output_plot.jpg)
-![exponential_moving_average_output_plot](readme_imgs/exponential_moving_average_output_plot.jpg)
-![fourier_output_plot](readme_imgs/fourier_output_plot.jpg)
+![output_plot](readme_imgs/Moving Average Output Plot.jpg)
+![geometric_moving_average_output_plot](readme_imgs/Geometric Moving Average Output Plot.jpg)
+![exponential_moving_average_output_plot](readme_imgs/Exponential Moving Average Output Plot.jpg)
+![fourier_output_plot](readme_imgs/Fourier Output Plot.jpg)
 
 These are the histograms of the Steps, Widths, and Slopes of all 1024 lines of data in the CSV data with the peak detection algorithms:
 
-![Steps Histogram](readme_imgs/Steps.jpg)
-![Widths Histogram](readme_imgs/Widths.jpg)
-![Slopes Histogram](readme_imgs/Slopes.jpg)
+![Steps Histogram](readme_imgs/Moving Average Steps.jpg)
+![Widths Histogram](readme_imgs/Moving Average Widths.jpg)
+![Slopes Histogram](readme_imgs/Moving Average Slopes.jpg)
 
 ![Exponential Moving Average Steps](readme_imgs/Exponential Moving Average Steps.jpg)
 ![Exponential Moving Average Widths](readme_imgs/Exponential Moving Average Widths.jpg)
@@ -58,7 +58,7 @@ These are the histograms of the Steps, Widths, and Slopes of all 1024 lines of d
 
 ![Fourier Slopes](readme_imgs/Fourier Slopes.jpg)
 ![Fourier Widths](readme_imgs/Fourier Widths.jpg)
-![Slopes Histogram](readme_imgs/Slopes.jpg)
+![Slopes Histogram](readme_imgs/Fourier Slopes.jpg)
 
 ![Geometric Moving Average Steps](readme_imgs/Geometric Moving Average Steps.jpg)
 ![Geometric Moving Average Widths](readme_imgs/Geometric Moving Average Widths.jpg)

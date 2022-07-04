@@ -81,7 +81,7 @@ def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, printout=Fals
         plt.plot(valleys, x[valleys], "ob")
         plt.plot(x)
         plt.legend(['Finished Chart'])
-        plt.savefig(chart_type + " Output Plot.jpg")
+        plt.savefig(chart_type.replace(" ", "_") + "_Output_Plot.jpg")
         plt.close()
 
     # Initialize empty arrays
@@ -181,7 +181,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.legend(['Unfiltered Data'])
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
-            plt.savefig("Unfiltered Plot.jpg")
+            plt.savefig("Unfiltered_Plot.jpg")
             plt.close()
 
             print("MA: " + str(moving_average_data))
@@ -189,7 +189,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Moving Average Filtered Data'])
-            plt.savefig("Moving Average Filtered Plot.jpg")
+            plt.savefig("Moving_Average_Filtered_Plot.jpg")
             plt.close()
 
             print("GMA: " + str(geometric_moving_average_data))
@@ -197,7 +197,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Geometric Moving Average Filtered Data'])
-            plt.savefig("Geometric Moving Average Filtered Plot.jpg")
+            plt.savefig("Geometric_Moving_Average_Filtered_Plot.jpg")
             plt.close()
 
             print("EMA: " + str(exponential_moving_average_data))
@@ -205,7 +205,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Exponential Moving Average Filtered Data'])
-            plt.savefig("Exponential Moving Average Filtered Plot.jpg")
+            plt.savefig("Exponential_Moving_Average_Filtered_Plot.jpg")
             plt.close()
 
             print("fourier: " + str(fourier_data))
@@ -213,7 +213,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
             plt.legend(['Fourier Filtered Data'])
-            plt.savefig("Fourier Filtered Plot.jpg")
+            plt.savefig("Fourier_Filtered_Plot.jpg")
             plt.close()
 
             print("mix_of_data")
@@ -225,7 +225,7 @@ def start(file_name, width_in_nm, printout_status=False):
             plt.legend()
             plt.xlabel(xlabel, fontsize=fontsize)
             plt.ylabel(ylabel, fontsize=fontsize)
-            plt.savefig("Total Filtered Plot.jpg")
+            plt.savefig("Total_Filtered_Plot.jpg")
             plt.close()
 
         # Find the peaks and valleys of the data passed through a MA filter
@@ -325,21 +325,21 @@ def start(file_name, width_in_nm, printout_status=False):
     return {
         "Moving Average Widths Peaks": signal_cleanup.histogram(
             moving_average_widths_array,
-            file_name + "Moving Average Widths",
+            file_name + "Moving_Average_Widths",
             width_label,
             "Count of Widths",
             fontsize,
             nm_per_pixel),
         "Moving Average Steps Peaks": signal_cleanup.histogram(
             moving_average_steps_array,
-            file_name + "Moving Average Steps",
+            file_name + "Moving_Average_Steps",
             steps_label,
             "Count of Steps",
             fontsize,
             nm_per_pixel),
         "Moving Average Slopes Peaks": signal_cleanup.histogram(
             moving_average_slopes_array,
-            file_name + "Moving Average Slopes",
+            file_name + "Moving_Average_Slopes",
             slopes_label,
             "Count of Slopes",
             fontsize,
@@ -347,21 +347,21 @@ def start(file_name, width_in_nm, printout_status=False):
 
         "Geometric Moving Average Widths Peaks": signal_cleanup.histogram(
             geometric_moving_average_widths_array,
-            file_name + "Geometric Moving Average Widths",
+            file_name + "Geometric_Moving_Average_Widths",
             width_label,
             "Count of Widths",
             fontsize,
             nm_per_pixel),
         "Geometric Moving Average Steps Peaks": signal_cleanup.histogram(
             geometric_moving_average_steps_array,
-            file_name + " Geometric Moving Average Steps",
+            file_name + "Geometric_Moving_Average_Steps",
             steps_label,
             "Count of Steps",
             fontsize,
             nm_per_pixel),
         "Geometric Moving Average Slopes Peaks": signal_cleanup.histogram(
             geometric_moving_average_slopes_array,
-            file_name + " Geometric Moving Average Slopes",
+            file_name + "Geometric_Moving_Average_Slopes",
             slopes_label,
             "Count of Slopes",
             fontsize,
@@ -369,21 +369,21 @@ def start(file_name, width_in_nm, printout_status=False):
 
         "Exponential Moving Average Widths Peaks": signal_cleanup.histogram(
             exponential_moving_average_widths_array,
-            file_name + " Exponential Moving Average Widths",
+            file_name + " Exponential_Moving_Average_Widths",
             width_label,
             "Count of Widths",
             fontsize,
             nm_per_pixel),
         "Exponential Moving Average Steps Peaks": signal_cleanup.histogram(
             exponential_moving_average_steps_array,
-            file_name + " Exponential Moving Average Steps",
+            file_name + " Exponential_Moving_Average_Steps",
             steps_label,
             "Count of Steps",
             fontsize,
             nm_per_pixel),
         "Exponential Moving Average Slopes Peaks": signal_cleanup.histogram(
             exponential_moving_average_slopes_array,
-            file_name + " Exponential Moving Average Slopes",
+            file_name + " Exponential_Moving_Average_Slopes",
             slopes_label,
             "Count of Slopes",
             fontsize,
@@ -391,21 +391,21 @@ def start(file_name, width_in_nm, printout_status=False):
 
         "Fourier Widths Peaks": signal_cleanup.histogram(
             fourier_widths_array,
-            file_name + " Fourier Widths",
+            file_name + " Fourier_Widths",
             width_label,
             "Count of Widths",
             fontsize,
             nm_per_pixel),
         "Fourier Steps Peaks": signal_cleanup.histogram(
             fourier_steps_array,
-            file_name + " Fourier Steps",
+            file_name + " Fourier_Steps",
             steps_label,
             "Count of Steps",
             fontsize,
             nm_per_pixel),
         "Fourier Slopes Peaks": signal_cleanup.histogram(
             fourier_slopes_array,
-            file_name + " Fourier Slopes",
+            file_name + " Fourier_Slopes",
             slopes_label,
             "Count of Slopes",
             fontsize,

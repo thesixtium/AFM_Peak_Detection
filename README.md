@@ -26,43 +26,43 @@ Python 3.8 is used with the following packages (all installed via ```pip install
 ## Terminology Explanation
 This is what one row of the raw CSV data looks like when plotted:
 
-![unfiltered_plot](readme_imgs/Unfiltered Plot.jpg)
+![unfiltered_plot](readme_imgs/Unfiltered_Plot.jpg)
 
 These plots are what the above row of raw CSV data looks like when filtered by the different filters mentioned in [What It Does](###-What-It-Does):
 
-![moving_average_filtered_plot](readme_imgs/Moving Average Filtered Plot.jpg)
-![geometric_filtered_plot](readme_imgs/Geometric Moving Average Filtered Plot.jpg)
-![exponential_filtered_plot](readme_imgs/Exponential Moving Average Filtered Plot.jpg)
-![fourier_filtered_plot](readme_imgs/Fourier Filtered Plot.jpg)
+![moving_average_filtered_plot](readme_imgs/Moving_Average_Filtered_Plot.jpg)
+![geometric_filtered_plot](readme_imgs/Geometric_Moving_Average_Filtered_Plot.jpg)
+![exponential_filtered_plot](readme_imgs/Exponential_Moving_Average_Filtered_Plot.jpg)
+![fourier_filtered_plot](readme_imgs/Fourier_Filtered_Plot.jpg)
 
 This is a visual diagram of what steps and widths, mentioned in [What It Does](###-What-It-Does), are defined as throughout the project: 
 
-![filtered_plot_explination](readme_imgs/Filtered Plot Explination.jpg)
+![filtered_plot_explination](readme_imgs/Filtered_Plot_Explination.jpg)
 
 These plots are what the peaks and valleys of the row of the filtered CSV from above will look like:
 
-![output_plot](readme_imgs/Moving Average Output Plot.jpg)
-![geometric_moving_average_output_plot](readme_imgs/Geometric Moving Average Output Plot.jpg)
-![exponential_moving_average_output_plot](readme_imgs/Exponential Moving Average Output Plot.jpg)
-![fourier_output_plot](readme_imgs/Fourier Output Plot.jpg)
+![output_plot](readme_imgs/Moving_Average_Output_Plot.jpg)
+![geometric_moving_average_output_plot](readme_imgs/Geometric_Moving_Average_Output_Plot.jpg)
+![exponential_moving_average_output_plot](readme_imgs/Exponential_Moving_Average_Output_Plot.jpg)
+![fourier_output_plot](readme_imgs/Fourier_Output_Plot.jpg)
 
 These are the histograms of the Steps, Widths, and Slopes of all 1024 lines of data in the CSV data with the peak detection algorithms:
 
-![Steps Histogram](readme_imgs/Moving Average Steps.jpg)
-![Widths Histogram](readme_imgs/Moving Average Widths.jpg)
-![Slopes Histogram](readme_imgs/Moving Average Slopes.jpg)
+![Steps Histogram](readme_imgs/Moving_Average_Steps.jpg)
+![Widths Histogram](readme_imgs/Moving_Average_Widths.jpg)
+![Slopes Histogram](readme_imgs/Moving_Average_Slopes.jpg)
 
-![Exponential Moving Average Steps](readme_imgs/Exponential Moving Average Steps.jpg)
-![Exponential Moving Average Widths](readme_imgs/Exponential Moving Average Widths.jpg)
-![Exponential Moving Average Slopes](readme_imgs/Exponential Moving Average Slopes.jpg)
+![Exponential Moving Average Steps](readme_imgs/Exponential_Moving_Average_Steps.jpg)
+![Exponential Moving Average Widths](readme_imgs/Exponential_Moving_Average_Widths.jpg)
+![Exponential Moving Average Slopes](readme_imgs/Exponential_Moving_Average_Slopes.jpg)
 
-![Fourier Slopes](readme_imgs/Fourier Slopes.jpg)
-![Fourier Widths](readme_imgs/Fourier Widths.jpg)
-![Slopes Histogram](readme_imgs/Fourier Slopes.jpg)
+![Fourier Slopes](readme_imgs/Fourier_Slopes.jpg)
+![Fourier Widths](readme_imgs/Fourier_Widths.jpg)
+![Slopes Histogram](readme_imgs/Fourier_Slopes.jpg)
 
-![Geometric Moving Average Steps](readme_imgs/Geometric Moving Average Steps.jpg)
-![Geometric Moving Average Widths](readme_imgs/Geometric Moving Average Widths.jpg)
-![Geometric Moving Average Slopes.jpg](readme_imgs/Geometric Moving Average Slopes.jpg)
+![Geometric Moving Average Steps](readme_imgs/Geometric_Moving_Average_Steps.jpg)
+![Geometric Moving Average Widths](readme_imgs/Geometric_Moving_Average_Widths.jpg)
+![Geometric Moving Average Slopes.jpg](readme_imgs/Geometric_Moving_Average_Slopes.jpg)
 
 ## Usage
 Use this code however you want (except for distributing closed source versions)! Please note there are a few __magic numbers__ throughout the program that are calibration values. These numbers are calibrated specifically for the data I received, and may not work on your data.

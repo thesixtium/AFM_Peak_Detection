@@ -37,7 +37,7 @@ These plots are what the above row of raw CSV data looks like when filtered by t
 
 This is a visual diagram of what steps and widths, mentioned in [What It Does](###-What-It-Does), are defined as throughout the project: 
 
-![filtered_plot_explination](readme_imgs/Filtered_Plot_Explination.jpg)
+![filtered_plot_explanation](readme_imgs/Filtered_Plot_Explination.jpg)
 
 These plots are what the peaks and valleys of the row of the filtered CSV from above will look like:
 

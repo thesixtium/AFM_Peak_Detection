@@ -50,7 +50,7 @@ def read_csv_line(file_name):
     return return_array
 
 
-def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, printout=False):
+def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, fontsize, printout=False):
     """
     Find the peaks and valleys in a data set
 
@@ -75,8 +75,8 @@ def find_csv_line_peaks(x, chart_type, x_label, y_label, distance, printout=Fals
     if printout:
         # Print out a chart showing the peaks and valleys overlayed on the data set
         print(peaks)
-        plt.xlabel(x_label)
-        plt.ylabel(y_label)
+        plt.xlabel(x_label, fontsize=fontsize)
+        plt.ylabel(y_label, fontsize=fontsize)
         plt.plot(peaks, x[peaks], "xr")
         plt.plot(valleys, x[valleys], "ob")
         plt.plot(x)
@@ -235,6 +235,7 @@ def start(file_name, width_in_nm, printout_status=False):
             xlabel,
             ylabel,
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
+            fontsize,
             printout=printout_status)
 
         # Find the peaks and valleys of the data passed through a GMA filter
@@ -244,6 +245,7 @@ def start(file_name, width_in_nm, printout_status=False):
             xlabel,
             ylabel,
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
+            fontsize,
             printout=printout_status)
 
         # Find the peaks and valleys of the data passed through a EMA filter
@@ -253,6 +255,7 @@ def start(file_name, width_in_nm, printout_status=False):
             xlabel,
             ylabel,
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
+            fontsize,
             printout=printout_status)
 
         # Find the peaks and valleys of the data passed through a Fourier filter
@@ -262,6 +265,7 @@ def start(file_name, width_in_nm, printout_status=False):
             xlabel,
             ylabel,
             ((1 / nm_per_pixel) * minimum_nm_between_peaks * 0.01),
+            fontsize,
             printout=printout_status)
 
         # Process peaks and valleys of the MA filtered data

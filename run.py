@@ -7,10 +7,7 @@ import warnings
 
 
 # open stuff stuff in sm4
-# Make sure EVERY graph has correct sized labels
-# Make sure EVERY graph has a title
 # fit gaussian
-# write how many peaks / centers
 # combine all graphs
 
 # Penny Next Step:
